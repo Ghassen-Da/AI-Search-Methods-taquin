@@ -15,6 +15,8 @@ class State:
         self.initial_state = self.sefInitialState()
         self.next_states.append(self.initial_state)
         self.dfs(self.initial_state)
+        if(self.found==False):
+            print('not found')
 
 
     def dfs(self, state):
@@ -30,6 +32,7 @@ class State:
             while(self.next_states):
                 neighbour=self.next_states.pop(len(self.next_states)-1)
                 self.dfs(neighbour)
+
 
 
 
