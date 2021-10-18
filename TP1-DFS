@@ -27,7 +27,6 @@ class State:
         elif state not in self.visited_states:
             self.visited_states.append(state)
             self.setNextStates(state)
-            print(self.next_states)
             while(self.next_states):
                 neighbour=self.next_states.pop(len(self.next_states)-1)
                 self.dfs(neighbour)
