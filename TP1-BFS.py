@@ -12,9 +12,6 @@ class State:
         self.setSize()
         self.final_state=self.setFinalState()
         self.initial_state=self.sefInitialState()
-        self.visited_states.append(self.initial_state)
-        self.next_states.append(self.initial_state)
-        print(self.initial_state)
         self.setNextStates(self.initial_state)
         while(self.next_states):
             state=self.next_states.pop(0)

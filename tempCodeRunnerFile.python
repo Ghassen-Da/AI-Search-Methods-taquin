@@ -1,0 +1,2 @@
+.next_states.pop(len(self.next_states)-1)
+            self.dfs(neigh
