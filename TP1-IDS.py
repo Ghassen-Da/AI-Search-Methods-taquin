@@ -32,7 +32,7 @@ class State:
         #While compteur!=0 means that we haven't set yet the next states of the states we got in the previous call
         while(self.next_states and compteur!=0):
             state=self.next_states.pop(0)
-            print (state, end = "\n")
+            self.affiche(state)
             if state == self.final_state:
                 print('found')
                 return True
@@ -47,6 +47,19 @@ class State:
         return False
 
 
+
+    def display(self, list):
+        for e in list:
+            print(e, end=' ')
+        print()
+
+
+    def affiche(self, state):
+        matrix = [ state[i:i+self.size] for i in range(0,len(state),self.size) ]
+        for l in matrix:
+            self.display(l)
+        print('\n')
+    
 
     def factorial(self, n):
         fact = 1

@@ -22,7 +22,7 @@ class State:
     def dfs(self, state):
         if(self.found):
             return
-        print(state)
+        self.affiche(state)
         if state == self.final_state:
             print("found")
             self.found=True
@@ -34,6 +34,18 @@ class State:
                 self.dfs(neighbour)
 
 
+
+    def display(self, list):
+        for e in list:
+            print(e, end=' ')
+        print()
+
+
+    def affiche(self, state):
+        matrix = [ state[i:i+self.size] for i in range(0,len(state),self.size) ]
+        for l in matrix:
+            self.display(l)
+        print('\n')
 
 
     def setSize(self):

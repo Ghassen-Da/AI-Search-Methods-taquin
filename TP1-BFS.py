@@ -15,7 +15,7 @@ class State:
         self.setNextStates(self.initial_state)
         while(self.next_states):
             state=self.next_states.pop(0)
-            print (state, end = "\n")
+            self.affiche(state)
             if state == self.final_state:
                 print('found')
                 return
@@ -28,6 +28,17 @@ class State:
             
             
 
+    def display(self, list):
+        for e in list:
+            print(e, end=' ')
+        print()
+
+
+    def affiche(self, state):
+        matrix = [ state[i:i+self.size] for i in range(0,len(state),self.size) ]
+        for l in matrix:
+            self.display(l)
+        print('\n')
 
 
     def setSize(self):
