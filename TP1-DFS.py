@@ -1,5 +1,7 @@
 import random
+import sys
 
+sys.setrecursionlimit(10000)
 
 class State:
     size = 2
@@ -7,46 +9,46 @@ class State:
     final_state = []
     next_states = []
     visited_states = []
-    found=False
+    found = False
 
     def taquin_dfs(self):
         self.setSize()
         self.final_state = self.setFinalState()
         self.initial_state = self.sefInitialState()
+        self.initial_state = [3, 1, 2, 4, 5, " ", 6, 7, 8]
         self.next_states.append(self.initial_state)
         self.dfs(self.initial_state)
-        if(self.found==False):
-            print('not found')
-
+        if self.found == False:
+            print("not found")
 
     def dfs(self, state):
-        if(self.found):
+        if self.found:
             return
         self.affiche(state)
         if state == self.final_state:
             print("found")
-            self.found=True
+            print(len(self.visited_states))
+            self.found = True
         elif state not in self.visited_states:
             self.visited_states.append(state)
             self.setNextStates(state)
-            while(self.next_states):
-                neighbour=self.next_states.pop(len(self.next_states)-1)
+            while self.next_states:
+                neighbour = self.next_states.pop()
+                if neighbour in self.visited_states:
+                     return
                 self.dfs(neighbour)
-
-
+        return
 
     def display(self, list):
         for e in list:
-            print(e, end=' ')
+            print(e, end=" ")
         print()
 
-
     def affiche(self, state):
-        matrix = [ state[i:i+self.size] for i in range(0,len(state),self.size) ]
+        matrix = [state[i : i + self.size] for i in range(0, len(state), self.size)]
         for l in matrix:
             self.display(l)
-        print('\n')
-
+        print("\n")
 
     def setSize(self):
         self.size = int(input("Write the size of the square: "))
@@ -117,50 +119,50 @@ class State:
         if freeSpotIndex < self.size:
             # If the empty spot is the upper left corner
             if freeSpotIndex == 0:
-                self.next_states.append(self.translationFunction(current_state, "r"))
                 self.next_states.append(self.translationFunction(current_state, "d"))
+                self.next_states.append(self.translationFunction(current_state, "r"))
             # If the empty spot is the upper right corner
             elif freeSpotIndex == self.size - 1:
                 self.next_states.append(self.translationFunction(current_state, "d"))
                 self.next_states.append(self.translationFunction(current_state, "l"))
             else:
-                self.next_states.append(self.translationFunction(current_state, "r"))
                 self.next_states.append(self.translationFunction(current_state, "l"))
                 self.next_states.append(self.translationFunction(current_state, "d"))
+                self.next_states.append(self.translationFunction(current_state, "r"))
 
         # If the free spot is on the bottom ligne
         elif freeSpotIndex > self.size ** 2 - self.size - 1:
             # If the empty spot is the bottom right corner
             if freeSpotIndex == self.size ** 2 - 1:
-                self.next_states.append(self.translationFunction(current_state, "u"))
                 self.next_states.append(self.translationFunction(current_state, "l"))
+                self.next_states.append(self.translationFunction(current_state, "u"))
             # If the empty spot is the bottom left corner
             elif freeSpotIndex == self.size ** 2 - self.size:
-                self.next_states.append(self.translationFunction(current_state, "u"))
                 self.next_states.append(self.translationFunction(current_state, "r"))
-            else:
                 self.next_states.append(self.translationFunction(current_state, "u"))
+            else:
                 self.next_states.append(self.translationFunction(current_state, "r"))
                 self.next_states.append(self.translationFunction(current_state, "l"))
+                self.next_states.append(self.translationFunction(current_state, "u"))
 
         # If the free spot is on the left border but not in the corners
         elif freeSpotIndex % self.size == 0:
+            self.next_states.append(self.translationFunction(current_state, "d"))
             self.next_states.append(self.translationFunction(current_state, "r"))
             self.next_states.append(self.translationFunction(current_state, "u"))
-            self.next_states.append(self.translationFunction(current_state, "d"))
 
         # If the free spot is on the right border (the corners case is treated above)
         elif freeSpotIndex % self.size == 2:
+            self.next_states.append(self.translationFunction(current_state, "d"))
             self.next_states.append(self.translationFunction(current_state, "l"))
             self.next_states.append(self.translationFunction(current_state, "u"))
-            self.next_states.append(self.translationFunction(current_state, "d"))
 
         # If the free spot is not on any border
         else:
-            self.next_states.append(self.translationFunction(current_state, "u"))
             self.next_states.append(self.translationFunction(current_state, "d"))
-            self.next_states.append(self.translationFunction(current_state, "l"))
+            self.next_states.append(self.translationFunction(current_state, "u"))
             self.next_states.append(self.translationFunction(current_state, "r"))
+            self.next_states.append(self.translationFunction(current_state, "l"))
 
 
 state = State()

@@ -11,27 +11,21 @@ class State:
     def taquin_bfs(self):
         self.setSize()
         self.final_state=self.setFinalState()
-        self.initial_state=self.sefInitialState()
+        # self.initial_state=self.sefInitialState()
+        self.initial_state = [3, 1, 2, 4, 5, " ", 6, 7, 8]
         self.setNextStates(self.initial_state)
         while(self.next_states):
             state=self.next_states.pop(0)
             self.affiche(state)
             if state == self.final_state:
                 print('found')
+                print(len(self.visited_states))
                 return
             elif state not in self.visited_states:
                 self.visited_states.append(state)
                 self.setNextStates(state)
-            # print(len(self.visited_states))
         print('not found')
         return 
-            
-            
-
-    def display(self, list):
-        for e in list:
-            print(e, end=' ')
-        print()
 
 
     def affiche(self, state):
@@ -39,6 +33,12 @@ class State:
         for l in matrix:
             self.display(l)
         print('\n')
+
+
+    def display(self, list):
+        for e in list:
+            print(e, end=' ')
+        print()
 
 
     def setSize(self):
