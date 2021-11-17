@@ -8,15 +8,16 @@ class Taquin:
     final_state = []
     next_states = []
     visited_states = []
+    heuristique=1
 
     def taquin_a_star(self):
         self.setSize()
+        self.heuristique=int(input("entrez le numéro de l'heuristique:"))
         self.final_state = self.setFinalState()
         self.initial_state = self.sefInitialState()
-        self.initial_state = [3, 1, 2, 4, 5, " ", 6, 7, 8]
+        self.initial_state = [3, 1, 2, 6, 4, " ", 5, 7, 8]
         g_initial = 0
         h_initial = self.h(self.initial_state)
-        # state,g,h
         self.setNextStates([self.initial_state, g_initial, h_initial])
         while self.next_states:
             # index of the state with minimal heuristic
@@ -58,7 +59,10 @@ class Taquin:
         return sum
 
     def h(self, state):
-        return self.h1(state)
+        if self.heuristique==1:
+            return self.h1(state)
+        if self.heuristique==2:
+            return self.h2(state)
 
     def affiche(self, state):
         matrix = [state[i : i + self.size] for i in range(0, len(state), self.size)]
@@ -280,13 +284,6 @@ class Taquin:
         elif freeSpotIndex % self.size == 2:
             self.next_states.append(
                 [
-                    self.translationFunction(current_state, "l"),
-                    g + 2,
-                    self.h(self.translationFunction(current_state, "l")),
-                ]
-            )
-            self.next_states.append(
-                [
                     self.translationFunction(current_state, "u"),
                     g + 2,
                     self.h(self.translationFunction(current_state, "u")),
@@ -297,6 +294,13 @@ class Taquin:
                     self.translationFunction(current_state, "d"),
                     g + 2,
                     self.h(self.translationFunction(current_state, "d")),
+                ]
+            )
+            self.next_states.append(
+                [
+                    self.translationFunction(current_state, "l"),
+                    g + 2,
+                    self.h(self.translationFunction(current_state, "l")),
                 ]
             )
 
